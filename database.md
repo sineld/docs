@@ -51,8 +51,8 @@ Veritabanı bağlantılarını bir kere yapılandırdıktan sonra `DB` sınıfı
 		//
 	});
 
-<a name="database-transactions"></a>
-## Database Transactions
+<a name="veritabanı-işlemleri"></a>
+## Veritabanı İşlemleri
 
 To run a set of operations within a database transaction, you may use the `transaction` method:
 

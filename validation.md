@@ -10,13 +10,13 @@
 <a name="basic-usage"></a>
 ## Basit Kullanım
 
-Laravel, `Validation` sınıfı aracığıyla verilerin geçerlilik denetimi ve geçerlilik hata mesajlarının gösterilmesi için basit, kullanışlı bir araçla birlikte gelmektedir.
+Laravel, `Validation` sınıfı aracığıyla verilerin geçerlilik denetimi ve geçerlilik hata mesajlarının gösterilmesi için basit ve kullanışlı bir araçla birlikte gelmektedir.
 
-**Basit Geçerlilik Denetimi Örneği**
+**Basit Bir Geçerlilik Denetimi Örneği**
 
 	$geçerlilikyoklayici = Validator::make(
 		array('isim' => 'Dayle'),
-		array('isim' => 'required|min:5')
+		array('yaş'  => 'required|min:5')
 	);
 
 Buradaki `make` metoduna geçilen ilk parametre, geçerli olup olmadığına bakılacak veridir. İkinci parametre ise, bu veriye tatbik edilecek geçerlilik kurallarıdır.
@@ -27,21 +27,21 @@ Birden çok kural ya bir "pipe" karakteri (|) ile ayrılır, ya da ayrı dizi el
 
 	$geçerlilikyoklayici = Validator::make(
 		array('isim' => 'Dayle'),
-		array('isim' => array('required', 'min:5'))
+		array('yaş'  => array('required', 'min:5'))
 	);
 
-Bir `Validator` olgusu oluşturulduktan sonra, geçerlilik denetimi yapmak için `fails` (veya `passes`) metodu kullanılabilir.
+Bir `Validator` olgusu oluşturulduktan sonra, geçerlilik denetimi yapmak için `fails` veya `passes` metodları kullanılabilir.
 
 	if ($geçerlilikyoklayici->fails())
 	{
 		// İlgili veri geçerlik denetimini geçememiştir
 	}
 
-Şayet geçerlilik denetimi başarısız olursa, geçerlik yoklayıcısından hata mesajları alabilirsiniz.
+Şayet geçerlilik denetimi başarısız olursa, geçerlik yoklayıcısından hata mesajları alabilirsiniz:
 
 	$mesajlar = $geçerlilikyoklayici->messages();
 
-Ayrıca, başarısız olan geçerlilik kurallarına bir dizi olarak da erişebilirsiniz. Bunu yapmak için `failed` metodunu kullanın:
+Ayrıca, başarısız olan geçerlilik kurallarına bir dizi olarak da erişebilirsiniz. Bunu yapmak için `failed` metodunu kullanabilirsiniz:
 
 	$kalanlar = $geçerlilikyoklayici->failed();
 
@@ -95,14 +95,14 @@ Bir `Validator` olgusunda `messages` metodunu çağırdıktan sonra, bir `Messag
 <a name="error-messages-and-views"></a>
 ## Hata Mesajları & Görünümler
 
-Geçerlilik denetimi yaptıktan sonra, aldığınız hata mesajlarını görünümlerinize gönderecek kolay bir yola ihtiyacınız olacak. Bu iş Laravel tarafından pratik bir şekilde halledilmektedir. Bir örnek olarak şu rotaları ele alalım:
+Geçerlilik denetimi yaptıktan sonra aldığınız hata mesajlarını görünümlerinize gönderecek kolay bir yola ihtiyacınız olacak. Bu iş Laravel tarafından pratik bir şekilde halledilmektedir. Bir örnek olarak şu rotaları ele alalım:
 
-	Route::get('register', function()
+	Route::get('kayit', function()
 	{
-		return View::make('uye.register');
+		return View::make('uye.kayit');
 	});
 
-	Route::post('register', function()
+	Route::post('kayit', function()
 	{
 		$kurallar = array(...);
 
@@ -110,7 +110,7 @@ Geçerlilik denetimi yaptıktan sonra, aldığınız hata mesajlarını görün�
 
 		if ($geçerlilikyoklayici->fails())
 		{
-			return Redirect::to('register')->withErrors($geçerlilikyoklayici);
+			return Redirect::to('kayit')->withErrors($geçerlilikyoklayici);
 		}
 	});
 
@@ -274,7 +274,7 @@ Geçerlilik bakılan alan listelenen uzantılardan birine tekabül eden bir MIME
 
 **MIME Kuralının Basit Kullanım Şekli**
 
-	'foto' => 'mimes:jpeg,bmp,png'
+	'resim' => 'mimes:jpeg,bmp,png'
 
 <a name="rule-min"></a>
 #### min: _deger_
@@ -401,7 +401,7 @@ Laravel'de her biri yararlı çok sayıda geçerlilik kuralı bulunmaktadır; bu
 
 	Validator::extend('falan', function($attribute, $value, $parameters)
 	{
-		return $value == 'falan';
+		return $value === 'falan';
 	});
 
 > **Not:** `extend` metoduna geçilen kuralın adı "yılan tipi" (kelimeler boşluk olmaksızın, küçük harfli ve alt tire ile birleştirilmiş) olmalıdır.
@@ -424,7 +424,7 @@ Validator'ü genişletmek için bir bitirme fonksiyonu çağrısı kullanmak yer
 
 		public function validateFalan($attribute, $value, $parameters)
 		{
-			return $value == 'falan';
+			return $value === 'falan';
 		}
 
 	}

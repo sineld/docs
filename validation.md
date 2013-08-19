@@ -27,7 +27,7 @@ Birden çok kural ya bir "pipe" karakteri (|) ile ayrılır, ya da ayrı dizi el
 
 	$geçerlilikyoklayici = Validator::make(
 		array('isim' => 'Dayle'),
-		array('yaş'  => array('required', 'min:5'))
+		array('yas'  => array('required', 'min:5'))
 	);
 
 Bir `Validator` olgusu oluşturulduktan sonra, geçerlilik denetimi yapmak için `fails` veya `passes` metodları kullanılabilir.

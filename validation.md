@@ -16,7 +16,7 @@ Laravel, `Validation` sınıfı aracığıyla verilerin geçerlilik denetimi ve 
 
 	$geçerlilikyoklayici = Validator::make(
 		array('isim' => 'Dayle'),
-		array('yaş'  => 'required|min:5')
+		array('yas'  => 'required|min:5')
 	);
 
 Buradaki `make` metoduna geçilen ilk parametre, geçerli olup olmadığına bakılacak veridir. İkinci parametre ise, bu veriye tatbik edilecek geçerlilik kurallarıdır.

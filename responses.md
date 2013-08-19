@@ -13,7 +13,7 @@
 
 	Route::get('/', function()
 	{
-		return 'Merhaba Millet';
+		return 'Merhaba dünya!';
 	});
 
 **Özel Cevaplar Oluşturma**
@@ -37,15 +37,15 @@ Bir cevap (`Response`) olgusu `Symfony\Component\HttpFoundation\Response` sını
 
 **Bir Yön Değiştirtme Döndürme**
 
-	return Redirect::to('uye/login');
+	return Redirect::to('uye/giris');
 
 **Flaş Veri Eşliğinde Bir Yön Değiştirtme Döndürme**
 	
-	return Redirect::to('uye/login')->with('message', 'Giriş Başarısız!');
+	return Redirect::to('uye/giris')->with('mesaj', 'Giriş başarısız!');
 
 **İsimli Bir Rotaya Yön Değiştirme Döndürme**
 
-	return Redirect::route('login');
+	return Redirect::route('giris');
 
 **Parametre Geçerek İsimli Bir Rotaya Yön Değiştirme Döndürme**
 
@@ -129,17 +129,19 @@ Görünüm kompozitörleri görünüm oluşturulduğu zaman çağrılan bitirme 
 
 	View::composer('profil', function($view)
 	{
-		$view->with('adet', Uye::count());
+		$view->with('navigasyon', Sayfa::all());
 	});
 
-Şimdi `profil` görünümü her oluşturulduğunda, `adet` verisi bu görünüme bağlanacaktır.
+Şimdi `profil` görünümü her oluşturulduğunda, `navigasyon` verisi bu görünüme bağlanacaktır.
 
 Bir görünüm kompozitörüne bir defada birden çok görünüm bağlamanız da mümkündür:
 
-    View::composer(array('profil','pano'), function($view)
+    View::composer(array('profil','pano','bildirim'), function($view)
     {
-        $view->with('adet', Uye::count());
+        $view->with('navigasyon', Sayfa::all());
     });
+    
+> **Not:** Görünüm Kompozitörlerini tüm sayfalara bağlamanız gerektiğinde, dizi olarak tüm sayfaları tek tek vermek yerine, `layout` olarak kullandığınız görünümünü verebilirsiniz. Böylece o layoutu extend eden her sayfa otomatik olarak kompozitörden gelen verilere ulaşabillir.
 
 Bunun yerine sınıf tabanlı bir kompozitör kullanmak isterseniz, ki uygulama [IoC Konteyneri](/docs/ioc) ile çözümlenebilme yararı sağlar, şöyle yapabilirsiniz:
 

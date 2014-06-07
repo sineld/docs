@@ -61,7 +61,7 @@ Bu metod rol ünvanlarından oluşan bir dizi döndürecektir. Döndürülen diz
 
 	$sorgu = DB::table('uyeler')->select('isim');
 
-	$uyeler = $query->addSelect('yas')->get();
+	$uyeler = $sorgu->addSelect('yas')->get();
 
 **Where Kullanımı**
 
